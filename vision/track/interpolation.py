@@ -26,7 +26,13 @@ def Linear(source, target):
         xbr = source.xbr + xbrr * off
         ybr = source.ybr + ybrr * off
         generated = int(i != source.frame and i != target.frame)
-        lost = source.lost or target.lost
+        # jj: handle source and target frame case
+        if i == source.frame:
+            lost = source.lost
+        elif i == target.frame:
+            lost = target.lost
+        else:
+            lost = source.lost or target.lost
         results.append(Box(xtl, ytl, xbr, ybr,
                        frame = i, 
                        lost = lost,
